@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Voting System</title>
+    <style>
+        body {
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            background-color: black;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: white;
+            margin-bottom: 30px;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .party-box {
+            background-color: black;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px white;
+            width: 250px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .party-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px white;
+        }
+        .party-logo {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            animation: spin 2s linear infinite;
+            border-radius: 50%;
+        }
+        .party-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .leader-name {
+            font-size: 18px;
+            color:white;
+            margin-bottom: 20px;
+        }
+        .vote-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: black;
+            background-color: rgb(0, 195, 255);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .vote-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+       
+        .result-link {
+            margin-top: 40px;
+            text-decoration: none;
+            color: #007BFF;
+            font-size: 18px;
+        }
+        .result-link:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Vote for the Party</h1>
+    <div class="container">
+        <div class="party-box">
+            <img src="congress-logo.jpeg" alt="Party 1 Logo" class="party-logo">
+            <div class="party-name">INC</div>
+            <div class="leader-name">Mallikarjun Kharge</div>
+            <button class="vote-btn" onclick="vote('INC')">Vote</button>
+        </div>
+        <div class="party-box">
+            <img src="bjp logo.jpeg" alt="Party 2 Logo" class="party-logo">
+            <div class="party-name">BJP</div>
+            <div class="leader-name">J.P.Nadda</div>
+            <button class="vote-btn" onclick="vote('BJP')">Vote</button>
+        </div>
+        <div class="party-box">
+            <img src="aap logo.jpg" alt="Party 3 Logo" class="party-logo">
+            <div class="party-name">AAP</div>
+            <div class="leader-name">Arvind Kejriwal</div>
+            <button class="vote-btn" onclick="vote('AAP')">Vote</button>
+        </div>
+        
+        <div class="party-box">
+            <img src="BAHUJAN LOGO.jpeg" alt="Party 4 Logo" class="party-logo">
+            <div class="party-name">BSP</div>
+            <div class="leader-name">Mayawati Prabhu Das</div>
+            <button class="vote-btn" onclick="vote('BSP')">Vote</button>
+        </div>
+        <div class="party-box">
+            <img src="COMMUNIST LOGO.jpeg" alt="Party 5 Logo" class="party-logo">
+            <div class="party-name">CPI</div>
+            <div class="leader-name">Durai Raja</div>
+            <button class="vote-btn" onclick="vote('CPI')">Vote</button>
+        </div>
+        <div class="party-box">
+            <img src="AA.jpeg" alt="Party 6 Logo" class="party-logo">
+            <div class="party-name">AITC</div>
+            <div class="leader-name">Mamta Banerjee</div>
+            <button class="vote-btn" onclick="vote('AITC')">Vote</button>
+        </div>
+    </div>
+
+    <a href="08-result.html" class="result-link">See the results</a>
+
+    <script>
+        let votes = {
+            'INC': 0,
+            'BJP': 0,
+            'AAP': 0,
+            'BSP': 0,
+            'CPI': 0,
+            'AITC': 0
+        };
+
+        function vote(partyName) {
+            votes[partyName]++;
+            alert('You voted for ' + partyName + '!');
+            localStorage.setItem('votes', JSON.stringify(votes));
+        }
+    </script>
+</body>
+</html>

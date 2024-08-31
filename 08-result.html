@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting Results</title>
+    <style>
+        body {
+            font-family: 'Trebuchet MS', Arial, sans-serif;
+            background-color: black;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #61dafb;
+            margin-bottom: 30px;
+        }
+        .results-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 80%;
+            max-width: 1200px;
+        }
+        .result-row {
+            display: flex;
+            align-items: center;
+            background-color: black;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.5);
+            padding: 20px;
+            animation: fadeIn 1s ease-out;
+        }
+        .party-logo {
+            width: 80px;
+            height: 80px;
+            margin-right: 20px;
+            border-radius: 50%;
+        }
+        .party-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-right: 20px;
+        }
+        .vote-count {
+            font-size: 20px;
+            color: #61dafb;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .back-link {
+            margin-top: 30px;
+            text-decoration: none;
+            color: #61dafb;
+            font-size: 18px;
+        }
+        .back-link:hover {
+            color: #21a1f1;
+        }
+    </style>
+</head>
+<body>
+    <h1>Voting Results</h1>
+    <div class="results-container" id="results">
+       
+    </div>
+    <a href="07-voting.html" class="back-link">Back to Voting Page</a>
+
+    <script>
+
+        let votes = JSON.parse(localStorage.getItem('votes')) || {};
+        let parties = [
+            { name: 'INC', logo: 'congress-logo.jpeg' },
+            { name: 'BJP', logo: 'bjp logo.jpeg' },
+            { name: 'AAP', logo: 'aap logo.jpg' },
+            { name: 'BSP', logo: 'BAHUJAN LOGO.jpeg' },
+            { name: 'AITC', logo: 'AA.jpeg' },
+            { name: 'CPI', logo: 'COMMUNIST LOGO.jpeg' }
+        ];
+
+        function displayResults() {
+            const resultsContainer = document.getElementById('results');
+
+            parties.forEach(party => {
+                const resultRow = document.createElement('div');
+                resultRow.className = 'result-row';
+
+                const logo = document.createElement('img');
+                logo.src = party.logo; // Use party-specific logo
+                logo.alt = party.name + ' Logo';
+                logo.className = 'party-logo';
+                logo.onerror = function() {
+                    this.src = 'fallback-logo.png'; // Replace with your fallback logo path
+                };
+
+                const partyName = document.createElement('div');
+                partyName.className = 'party-name';
+                partyName.textContent = party.name;
+
+                const voteCount = document.createElement('div');
+                voteCount.className = 'vote-count';
+                voteCount.textContent = votes[party.name] || 0;
+
+                resultRow.appendChild(logo);
+                resultRow.appendChild(partyName);
+                resultRow.appendChild(voteCount);
+
+                resultsContainer.appendChild(resultRow);
+            });
+        }
+
+        // Call the function to display results on page load
+        displayResults();
+    </script>
+</body>
+</html>
